@@ -1,0 +1,23 @@
+# Ignore files for PNPM and NPM
+package.json
+pnpm-lock.yaml
+
+# Node dependencies
+node_modules
+
+# Logs
+logs
+*.log
+
+# Misc
+.DS_Store
+.fleet
+.idea
+
+# Local env files
+.env
+.env.*
+!.env.example
+
+# PosgreSQL data
+data
