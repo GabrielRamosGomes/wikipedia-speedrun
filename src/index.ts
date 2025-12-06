@@ -1,12 +1,23 @@
-import { vectorizedPlayer } from './players/vetorized.js'
+import { printGameResult, saveJsonResult } from './core/reporters.js'
+import { VectorizedPlayer } from './players/vetorized.js'
 
 const START_URL = 'https://en.wikipedia.org/wiki/Cristiano_Ronaldo'
 const END_URL = 'https://en.wikipedia.org/wiki/Artificial_intelligence'
 
 async function main() {
-    const result = await vectorizedPlayer.play(START_URL, END_URL)
+    const player_1 = new VectorizedPlayer('Vectorized Player 1')
+    const game1 = await player_1.play(START_URL, END_URL)
+    const game2 = await player_1.play(
+        'https://en.wikipedia.org/wiki/Duolingo',
+        'https://pt.wikipedia.org/wiki/Afonso_Henriques'
+    )
 
-    vectorizedPlayer.printGameResult(result)
+    const results = [game1, game2]
+
+    // Game Summaries
+    const fileName = `${Date.now()}_${player_1.name.replace(/\s+/g, '_').toLowerCase()}.json`
+    saveJsonResult(fileName, results)
+    printGameResult(results)
 }
 
 main()

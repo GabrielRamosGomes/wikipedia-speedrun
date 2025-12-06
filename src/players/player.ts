@@ -1,21 +1,58 @@
 import { getAllValidLinks } from '../wikipedia.js'
 
-type Result = {
+export type GameResult = {
+    start_link: string
+    end_link: string
     path: string[]
     success: boolean
     timeTaken: number // in seconds
     averageTimePerStep: number // in seconds
+    name: string
+    description?: string
 }
 
 export abstract class Player {
+    public name: string = 'Base Player'
+
+    constructor(name: string) {
+        this.name = name
+    }
+
     abstract chooseNextLink(targetPage: string, links: string[]): Promise<string>
 
-    async play(startPage: string, targetPage: string): Promise<Result> {
+    async play(startPage: string, targetPage: string, maxTime: number = 60): Promise<GameResult> {
         let current = startPage
         const visited: string[] = []
 
+        const baseGameResult: Partial<GameResult> = {
+            start_link: startPage,
+            end_link: targetPage,
+            name: this.name
+        }
+
         const startTime = Date.now()
+        const maxTimeMs = maxTime * 1000
+
         while (current !== targetPage) {
+            if (Date.now() - startTime > maxTimeMs) {
+                const endTime = Date.now()
+
+                const { timeTaken, averageTimePerStep } = this.calculateTimeMetrics(
+                    startTime,
+                    endTime,
+                    visited.length
+                )
+
+                return {
+                    ...baseGameResult,
+                    path: visited,
+                    success: false,
+                    timeTaken,
+                    averageTimePerStep,
+                    description: 'Time limit exceeded'
+                } as GameResult
+            }
+
             visited.push(current)
             console.log('Visiting:', current)
 
@@ -31,7 +68,13 @@ export abstract class Player {
                     visited.length
                 )
 
-                return { path: visited, success: false, timeTaken, averageTimePerStep }
+                return {
+                    ...baseGameResult,
+                    path: visited,
+                    success: false,
+                    timeTaken,
+                    averageTimePerStep
+                } as GameResult
             }
 
             current = await this.chooseNextLink(targetPage, availableLinks)
@@ -39,7 +82,7 @@ export abstract class Player {
 
         const endTime = Date.now()
         visited.push(targetPage)
-        console.log('Found:', targetPage)
+        console.log('FOUND:', targetPage)
 
         const { timeTaken, averageTimePerStep } = this.calculateTimeMetrics(
             startTime,
@@ -47,26 +90,13 @@ export abstract class Player {
             visited.length
         )
 
-        return { path: visited, success: true, timeTaken, averageTimePerStep }
-    }
-
-    printGameResult(result: Result) {
-        const totalSteps = result.path.length - 1
-        const statusEmoji = result.success ? '✅' : '❌'
-
-        const normalizedPath = result.path.map((url) =>
-            url.replace('https://en.wikipedia.org/wiki/', '')
-        )
-
-        console.log('\n' + '='.repeat(50))
-        console.log('🎮 GAME RESULT')
-        console.log('='.repeat(50))
-        console.log(`${statusEmoji} Status: ${result.success ? 'SUCCESS' : 'FAILED'}`)
-        console.log(`🔗 Total Steps: ${totalSteps}`)
-        console.log(`⏱️  Total Time: ${result.timeTaken.toFixed(2)}s`)
-        console.log(`⚡ Avg Time/Step: ${result.averageTimePerStep.toFixed(2)}s`)
-        console.log(`📍 Path: ${normalizedPath.join(' → ')}`)
-        console.log('='.repeat(50) + '\n')
+        return {
+            ...baseGameResult,
+            path: visited,
+            success: true,
+            timeTaken,
+            averageTimePerStep
+        } as GameResult
     }
 
     private calculateTimeMetrics(startTime: number, endTime: number, steps: number) {
