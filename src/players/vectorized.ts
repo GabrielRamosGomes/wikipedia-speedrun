@@ -9,7 +9,10 @@ export class VectorizedPlayer extends Player {
             this.targetEmbedding = await encode(targetPage)
         }
 
-        const bestIndex = await rankList(this.targetEmbedding, links)
+        // Only get the word after /wiki
+        const normalizedLinks = links.map((link) => link.split('/wiki/')[1])
+
+        const bestIndex = await rankList(this.targetEmbedding, normalizedLinks)
 
         return links[bestIndex]
     }
