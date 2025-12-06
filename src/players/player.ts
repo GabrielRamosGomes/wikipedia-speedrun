@@ -1,4 +1,4 @@
-import { getAllValidLinks } from '../wikipedia.js'
+import { getAllValidLinks } from '../core/wikipedia.js'
 
 export type GameResult = {
     start_link: string
