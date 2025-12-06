@@ -1,27 +1,12 @@
-import fetch from 'node-fetch';
-import * as cheerio from 'cheerio';
+import { vectorizedPlayer } from './players/vetorized.js'
 
-console.log("Hello, Wikipedia Speedrun!");
+const START_URL = 'https://en.wikipedia.org/wiki/Cristiano_Ronaldo'
+const END_URL = 'https://en.wikipedia.org/wiki/Artificial_intelligence'
 
-const BASE_URL = "https://en.wikipedia.org";
+async function main() {
+    const result = await vectorizedPlayer.play(START_URL, END_URL)
 
-const START_URL = `${BASE_URL}/wiki/Duolingo`;
-const TARGET_URL = `${BASE_URL}/wiki/Philosophy`;
-
-async function getAllValidLinks(pageUrl: string) {
-    const html = (await fetch(pageUrl)).text();
-    const $ = cheerio.load(await html);
-    const content = $('div.mw-content-ltr.mw-parser-output').first();
-
-    const links = new Set<string>();
-    content.find('a').each((_, element) => {
-        const href = $(element).attr('href');
-        if (href && href.startsWith('/wiki/') && !href.includes(':')) {
-            links.add(href);
-        }
-    });
-
-    return Array.from(links);
+    vectorizedPlayer.printGameResult(result)
 }
 
-await getAllValidLinks(START_URL);
+main()
