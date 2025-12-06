@@ -1,0 +1,12 @@
+[
+  {
+    "start": "https://en.wikipedia.org/wiki/Elon_Musk",
+    "end": "https://en.wikipedia.org/wiki/Tajikistan",
+    "maxTime": 120
+  },
+  {
+    "start": "https://en.wikipedia.org/wiki/Duolingo",
+    "end": "https://en.wikipedia.org/wiki/Portugal",
+    "maxTime": 60
+  }
+]

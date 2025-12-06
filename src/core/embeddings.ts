@@ -10,6 +10,10 @@ export async function encode(text: string): Promise<number[]> {
     return Array.from(output.data)
 }
 
+/**
+ * Rank a list of text summaries based on their similarity to a target embedding.
+ * Returns the index of the most similar summary.
+ */
 export async function rankList(targetEmb: number[], summaries: string[]) {
     // Get embeddings for all summaries
     const summaryEmbeddings = await Promise.all(
