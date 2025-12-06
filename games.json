@@ -2,7 +2,7 @@
   {
     "start": "https://en.wikipedia.org/wiki/Elon_Musk",
     "end": "https://en.wikipedia.org/wiki/Tajikistan",
-    "maxTime": 120
+    "maxTime": 60
   },
   {
     "start": "https://en.wikipedia.org/wiki/Duolingo",
