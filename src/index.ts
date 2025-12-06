@@ -7,10 +7,6 @@ const END_URL = 'https://en.wikipedia.org/wiki/Tajikistan'
 async function main() {
     const player_1 = new VectorizedPlayer('Vectorized Player 1')
     const game1 = await player_1.play(START_URL, END_URL)
-    // const game2 = await player_1.play(
-    //     'https://en.wikipedia.org/wiki/Duolingo',
-    //     'https://pt.wikipedia.org/wiki/Afonso_Henriques'
-    // )
 
     const results = [game1]
 
