@@ -1,7 +1,7 @@
 {
   "name": "wikipedia-speedrun",
   "version": "1.0.0",
-  "description": "A Wikepedia Speedruing AI game with different player strategies.",
+  "description": "A Wikipedia Speedrunning AI game with different player strategies.",
   "type": "module",
   "keywords": [],
   "author": "",
