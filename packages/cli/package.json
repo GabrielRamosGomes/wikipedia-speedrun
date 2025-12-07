@@ -1,0 +1,25 @@
+{
+  "name": "@wiki-speedrun/cli",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "bin": {
+    "wiki-speedrun": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc --build",
+    "clean": "rimraf dist tsconfig.tsbuildinfo",
+    "dev": "tsx src/cli.ts play",
+    "play": "node dist/cli.js play"
+  },
+  "dependencies": {
+    "@wiki-speedrun/core": "workspace:*",
+    "@wiki-speedrun/players": "workspace:*",
+    "commander": "^11.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "tsx": "^4.7.0",
+    "typescript": "catalog:"
+  }
+}

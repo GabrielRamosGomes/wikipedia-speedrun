@@ -1,4 +1,14 @@
+packages:
+    - packages/*
+    - apps/*
+
+catalog:
+    '@types/node': ^24.10.1
+    tsx: ^4.7.0
+    typescript: ^5.9.3
+
 onlyBuiltDependencies:
-  - esbuild
-  - protobufjs
-  - sharp
+    - esbuild
+    - onnxruntime-node
+    - protobufjs
+    - sharp
