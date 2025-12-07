@@ -7,6 +7,8 @@ export default [
     {
         files: ['**/*.ts'],
 
+        ignores: ['**/node_modules/**', '**/dist/**'],
+
         languageOptions: {
             parser: tsparser,
             sourceType: 'module'

@@ -15,7 +15,9 @@
     "clean": "pnpm -r clean",
     "typecheck": "tsc --build",
     "play": "pnpm --filter @wiki-speedrun/cli play",
-    "dev:cli": "pnpm --filter @wiki-speedrun/cli dev"
+    "dev:cli": "pnpm --filter @wiki-speedrun/cli dev",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "devDependencies": {
     "@types/node": "catalog:",
