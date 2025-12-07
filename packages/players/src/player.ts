@@ -1,15 +1,5 @@
-import { getAllValidLinks } from '../core/wikipedia.js'
-
-export type GameResult = {
-    start_link: string
-    end_link: string
-    path: string[]
-    success: boolean
-    timeTaken: number // in seconds
-    averageTimePerStep: number // in seconds
-    name: string
-    description?: string
-}
+import { getAllValidLinks } from '@wiki-speedrun/core'
+import type { GameResult } from '@wiki-speedrun/core'
 
 export abstract class Player {
     public name: string = 'Base Player'
@@ -20,7 +10,14 @@ export abstract class Player {
 
     abstract chooseNextLink(targetPage: string, links: string[]): Promise<string>
 
+    /**
+     * Plays a game from startPage to targetPage within maxTime seconds.
+     * @param startPage  The starting Wikipedia page URL.
+     * @param targetPage The target Wikipedia page URL.
+     * @param maxTime The maximum time allowed for the game in seconds.
+     */
     async play(startPage: string, targetPage: string, maxTime: number = 60): Promise<GameResult> {
+        console.log(`${this.name} starting game from ${startPage} to ${targetPage}`)
         let current = startPage
         const visited: string[] = []
 
@@ -49,7 +46,7 @@ export abstract class Player {
                     success: false,
                     timeTaken,
                     averageTimePerStep,
-                    description: 'Time limit exceeded'
+                    error: 'Time limit exceeded'
                 } as GameResult
             }
 

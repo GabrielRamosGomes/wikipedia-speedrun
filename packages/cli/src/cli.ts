@@ -1,13 +1,23 @@
 #!/usr/bin/env node
-import { readFileSync } from 'fs'
-import { printGameResult, saveJsonResult } from './core/reporters.js'
-import { VectorizedPlayer } from './players/vectorized.js'
+import { mkdirSync, readFileSync } from 'fs'
+import { printGameResult, saveJsonResult } from '@wiki-speedrun/core'
+import { VectorizedPlayer } from '@wiki-speedrun/players/vectorized'
 import { Command } from 'commander'
+import { join, dirname } from 'path'
+import { fileURLToPath } from 'url'
 
 const START_URL = 'https://en.wikipedia.org/wiki/Duolingo'
 const END_URL = 'https://en.wikipedia.org/wiki/Portugal'
 
 const program = new Command()
+
+const getResultsDir = () => {
+    const __filename = fileURLToPath(import.meta.url)
+    const __dirname = dirname(__filename)
+    const resultsDir = join(__dirname, '..', '..', '..', 'results')
+    mkdirSync(resultsDir, { recursive: true })
+    return resultsDir
+}
 
 program
     .name('wikipedia-speedrun')
@@ -33,7 +43,8 @@ program
         if (save) {
             const filename =
                 output || `${Date.now()}_${player.name.replace(/\s+/g, '_').toLowerCase()}.json`
-            saveJsonResult(filename, [result])
+            const filepath = join(getResultsDir(), filename)
+            saveJsonResult(filepath, [result])
         }
     })
 
@@ -77,7 +88,8 @@ program
         if (save) {
             const filename =
                 output || `${Date.now()}_${player.name.replace(/\s+/g, '_').toLowerCase()}.json`
-            saveJsonResult(filename, results)
+            const filepath = join(getResultsDir(), filename)
+            saveJsonResult(filepath, results)
         }
     })
 

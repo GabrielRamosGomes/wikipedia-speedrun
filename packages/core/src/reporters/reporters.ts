@@ -1,6 +1,5 @@
-import { GameResult } from '../players/player.js'
-import { mkdirSync, writeFileSync } from 'fs'
-import { join } from 'path'
+import { GameResult } from '../types'
+import { writeFileSync } from 'fs'
 
 export async function printGameResult(results: GameResult[]) {
     results.forEach((result) => {
@@ -23,17 +22,12 @@ export async function printGameResult(results: GameResult[]) {
     })
 }
 
-export function saveJsonResult(fileName: string, results: GameResult[]) {
-    const folder = 'results'
-    mkdirSync(folder, { recursive: true })
-
+export function saveJsonResult(filePath: string, results: GameResult[]) {
     const jsonContent = JSON.stringify(results, null, 2)
-
-    const filePath = join(folder, fileName)
 
     try {
         writeFileSync(filePath, jsonContent)
-        console.log(`💾 Game results saved to ${folder}/${fileName}`)
+        console.log(`💾 Game results saved to ${filePath}`)
     } catch (err) {
         console.error('❌ Error saving game result:', err)
     }
