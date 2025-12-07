@@ -1,6 +1,9 @@
-import { pipeline, cos_sim } from '@xenova/transformers'
+import { pipeline, cos_sim } from '@huggingface/transformers'
 
-const model = await pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2')
+const model = await pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2', {
+    dtype: 'fp32',
+    device: 'cpu'
+})
 const embeddingCache = new Map<string, number[]>()
 
 /**
@@ -12,10 +15,11 @@ export async function encode(text: string): Promise<number[]> {
     }
 
     const output = await model(text, { pooling: 'mean', normalize: true })
-    const embedding = Array.from(output.data)
-    embeddingCache.set(text, embedding)
+    const list = output.tolist() as number[][]
 
-    return embedding
+    embeddingCache.set(text, list[0])
+
+    return list[0]
 }
 
 /**

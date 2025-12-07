@@ -22,7 +22,7 @@
     "lint:fix": "eslint . --ext .ts --fix"
   },
   "dependencies": {
-    "@xenova/transformers": "^2.17.2",
+    "@huggingface/transformers": "^3.8.1",
     "cheerio": "^1.1.2",
     "commander": "^14.0.2",
     "node-fetch": "^3.3.2"

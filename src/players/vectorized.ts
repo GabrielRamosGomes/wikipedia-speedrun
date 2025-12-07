@@ -5,8 +5,9 @@ export class VectorizedPlayer extends Player {
     private targetEmbedding: number[] | null = null
 
     async chooseNextLink(targetPage: string, links: string[]): Promise<string> {
+        const target = this.normalizeLink(targetPage)
         if (!this.targetEmbedding) {
-            this.targetEmbedding = await encode(targetPage)
+            this.targetEmbedding = await encode(target)
         }
 
         const normalizedLinks = links.map((link) => this.normalizeLink(link))
