@@ -24,18 +24,11 @@ export async function encode(text: string): Promise<number[]> {
  */
 export async function rankList(targetEmb: number[], summaries: string[]) {
     // Get embeddings for all summaries
-    // const start = Date.now()
     const summaryEmbeddings = await Promise.all(
         summaries.map(async (summary) => await encode(summary))
     )
-    // const end = Date.now()
-    // console.log(`Encoded ${summaries.length} summaries in ${(end - start) / 1000}s`)
 
-    // Compute cosine similarities
-    // const startSim = Date.now()
     const similarities = summaryEmbeddings.map((emb) => cos_sim(targetEmb, emb))
-    // const endSim = Date.now()
-    // console.log(`Computed similarities in ${(endSim - startSim) / 1000}s`)
 
     // Return index of maximum similarity
     return similarities.indexOf(Math.max(...similarities))

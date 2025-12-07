@@ -9,17 +9,15 @@ export class VectorizedPlayer extends Player {
             this.targetEmbedding = await encode(targetPage)
         }
 
-        // Only get the word after /wiki
-        const normalizedLinks = links.map((link) => link.split('/wiki/')[1])
+        const normalizedLinks = links.map((link) => this.normalizeLink(link))
 
         const bestIndex = await rankList(this.targetEmbedding, normalizedLinks)
 
         return links[bestIndex]
     }
 
-    // Reset cache when starting new game
     async play(startPage: string, targetPage: string, maxTime: number = 60): Promise<GameResult> {
-        this.targetEmbedding = null // Reset cache
+        this.targetEmbedding = null
         return super.play(startPage, targetPage, maxTime)
     }
 }
