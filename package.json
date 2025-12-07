@@ -1,7 +1,7 @@
 {
   "name": "wikipedia-speedrun",
   "version": "1.0.0",
-  "description": "A Wikipedia speedrunning game where players navigate from one article to another using only the links within the articles.",
+  "description": "A Wikepedia Speedruing AI game with different player strategies.",
   "type": "module",
   "keywords": [],
   "author": "",
