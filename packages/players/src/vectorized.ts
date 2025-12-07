@@ -1,5 +1,6 @@
-import { GameResult, Player } from './player.js'
-import { encode, rankList } from '../core/embeddings.js'
+import { Player } from './player.js'
+import { encode, rankList } from '@wiki-speedrun/core'
+import type { GameResult } from '@wiki-speedrun/core'
 
 export class VectorizedPlayer extends Player {
     private targetEmbedding: number[] | null = null

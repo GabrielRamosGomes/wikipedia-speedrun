@@ -11,31 +11,22 @@
     "wikipedia-speedrun": "dist/cli.js"
   },
   "scripts": {
-    "dev": "tsx src/index.ts",
-    "start": "node dist/index.js",
-    "cli": "node dist/cli.js play",
-    "cli:dev": "tsx src/cli.ts play",
-    "cli:batch": "node dist/cli.js batch",
-    "cli:batch:dev": "tsx src/cli.ts batch",
-    "build": "tsc",
-    "lint": "eslint . --ext .ts",
-    "lint:fix": "eslint . --ext .ts --fix"
-  },
-  "dependencies": {
-    "@huggingface/transformers": "^3.8.1",
-    "cheerio": "^1.1.2",
-    "commander": "^14.0.2",
-    "node-fetch": "^3.3.2"
+    "build": "pnpm -r build",
+    "clean": "pnpm -r clean",
+    "typecheck": "tsc --build",
+    "play": "pnpm --filter @wiki-speedrun/cli play",
+    "dev:cli": "pnpm --filter @wiki-speedrun/cli dev"
   },
   "devDependencies": {
-    "@types/node": "^24.10.1",
+    "@types/node": "catalog:",
     "@typescript-eslint/eslint-plugin": "^8.48.1",
     "@typescript-eslint/parser": "^8.48.1",
     "eslint": "^9.39.1",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.4",
     "prettier": "^3.7.4",
-    "tsx": "^4.21.0",
-    "typescript": "^5.9.3"
+    "rimraf": "^6.1.2",
+    "tsx": "catalog:",
+    "typescript": "catalog:"
   }
 }
