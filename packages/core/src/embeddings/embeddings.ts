@@ -37,3 +37,5 @@ export async function rankList(targetEmb: number[], summaries: string[]) {
     // Return index of maximum similarity
     return similarities.indexOf(Math.max(...similarities))
 }
+
+export { cos_sim }

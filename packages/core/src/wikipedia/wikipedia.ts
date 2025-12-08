@@ -27,6 +27,13 @@ export async function getAllValidLinks(pageUrl: string) {
     return Array.from(links)
 }
 
+export function getPageTitleFromUrl(pageUrl: string) {
+    const title = pageUrl.split('/wiki/')[1]
+    const normalizedTitle = decodeURIComponent(title).replace(/_/g, ' ').trim().toLowerCase()
+
+    return normalizedTitle
+}
+
 export async function getRandomPage() {
     const randomUrl = 'https://en.wikipedia.org/wiki/Special:Random'
     const response = await fetch(randomUrl, {

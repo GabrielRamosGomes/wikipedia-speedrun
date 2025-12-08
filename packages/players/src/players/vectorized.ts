@@ -1,17 +1,21 @@
 import { Player } from './player.js'
-import { encode, rankList } from '@wiki-speedrun/core'
+import { encode, rankList, getPageTitleFromUrl } from '@wiki-speedrun/core'
 import type { GameResult } from '@wiki-speedrun/core'
 
 export class VectorizedPlayer extends Player {
+    constructor(name?: string) {
+        super(name ?? 'Vectorized Player')
+    }
+
     private targetEmbedding: number[] | null = null
 
     async chooseNextLink(targetPage: string, links: string[]): Promise<string> {
-        const target = this.normalizeLink(targetPage)
+        const target = getPageTitleFromUrl(targetPage)
         if (!this.targetEmbedding) {
             this.targetEmbedding = await encode(target)
         }
 
-        const normalizedLinks = links.map((link) => this.normalizeLink(link))
+        const normalizedLinks = links.map((link) => getPageTitleFromUrl(link))
 
         const bestIndex = await rankList(this.targetEmbedding, normalizedLinks)
 

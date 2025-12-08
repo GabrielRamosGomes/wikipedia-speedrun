@@ -101,11 +101,4 @@ export abstract class Player {
         const averageTimePerStep = steps > 0 ? timeTaken / steps : 0
         return { timeTaken, averageTimePerStep }
     }
-
-    protected normalizeLink(link: string): string {
-        const title = link.split('/wiki/')[1]
-        const normalizedTitle = decodeURIComponent(title).replace(/_/g, ' ').trim().toLowerCase()
-
-        return normalizedTitle
-    }
 }
