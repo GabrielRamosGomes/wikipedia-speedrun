@@ -4,7 +4,13 @@
         "outDir": "./dist",
         "rootDir": "./src",
         "composite": true,
-        "declarationMap": true
+        "declarationMap": true,
+        "paths": {
+            "@wiki-speedrun/core": ["../core/src/index.ts"],
+            "@wiki-speedrun/core/*": ["../core/src/*"],
+            "@wiki-speedrun/players": ["../players/src/index.ts"],
+            "@wiki-speedrun/players/*": ["../players/src/*"]
+        }
     },
     "include": ["src/**/*"],
     "exclude": ["node_modules", "dist", "**/*.test.ts"],
